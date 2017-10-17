@@ -1,0 +1,128 @@
+﻿@model List<Sitecore2MVC.ViewModels.CartViewModels>
+@using Sitecore.Mvc
+@{
+    Layout = null;
+}
+
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>Cart</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-content-right">
+                    <div class="woocommerce">
+                        <form method="post" action="#">
+                            <table cellspacing="0" class="shop_table cart">
+                                <thead>
+                                    <tr>
+                                        <th class="product-remove">&nbsp;</th>
+                                        <th class="product-thumbnail">&nbsp;</th>
+                                        <th class="product-name">Product</th>
+                                        <th class="product-price">Price</th>
+                                        <th class="product-quantity">Quantity</th>
+                                        <th class="product-subtotal">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+                                    @if (Model != null)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            <tr class="cart_item">
+                                                <td class="product-remove">
+                                                    @Ajax.ActionLink("x", "RemoveProductOnCart", "Site",
+                                                new { alias = item.Product.Alias },
+                                                new AjaxOptions
+                                                {
+                                                },
+                                                new { @class = "remove" }
+                                                )
+                                                </td>
+
+                                                <td class="product-thumbnail">
+                                                    <a href="~/Home/Product?keyword=@item.Product.Alias"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="@item.Product.Image"></a>
+                                                </td>
+
+                                                <td class="product-name">
+                                                    <a href="~/Home/Product?keyword=@item.Product.Alias">@item.Product.Name</a>
+                                                </td>
+
+                                                <td class="product-price">
+                                                    <span class="amount">@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c0}", item.Product.Price)</span>
+                                                </td>
+
+                                                <td class="product-quantity">
+                                                    <div class="quantity buttons_added">
+                                                        <input type="number" size="4" class="input-text qty text quantity-cart" title="Qty" value="@item.Quantity" min="0" step="1" data-id="@item.Product.Alias">
+
+                                                    </div>
+                                                </td>
+
+                                                <td class="product-subtotal">
+                                                    <span class="amount">@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c0}", item.Product.Price * item.Quantity)</span>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+
+                                    <tr>
+                                        <td class="actions" colspan="12">
+                                            <div class="coupon">
+                                                <label for="coupon_code">Coupon:</label>
+                                                <input type="text" placeholder="Coupon code" value="" id="coupon_code" class="input-text" name="coupon_code">
+                                                <input type="submit" value="Apply Coupon" name="apply_coupon" class="button">
+                                            </div>
+                                            <input type="submit" value="Update Cart" name="update_cart" class="button">
+                                            <a href="~/Home/Checkout" class="button"> Check out</a>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+
+                        <div class="cart-collaterals">
+                            <div class="cart_totals ">
+                                <h2>Cart Totals</h2>
+
+                                <table cellspacing="0">
+                                    <tbody>
+                                        <tr class="cart-subtotal">
+                                            <th>Cart Subtotal</th>
+                                            <td><span class="amount">@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c0}", Session["Amount"])</span></td>
+                                        </tr>
+
+                                        <tr class="shipping">
+                                            <th>Shipping and Handling</th>
+                                            <td>Free Shipping</td>
+                                        </tr>
+
+                                        <tr class="order-total">
+                                            <th>Order Total</th>
+                                            <td><strong><span class="amount">@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c0}", Session["Amount"])</span></strong> </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

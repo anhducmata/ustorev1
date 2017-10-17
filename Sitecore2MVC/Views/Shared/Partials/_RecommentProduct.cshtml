@@ -1,0 +1,29 @@
+﻿@using Sitecore1MVC.Models
+@model List<Sitecore1MVC.Models.Product>
+
+<div class="cross-sells">
+    <h2>You was seen it</h2>
+        @if (Model != null)
+        {
+            foreach (var item in Model.Take(10).Reverse())
+             {
+                 <div class="col-md-3 col-sm-6">
+                     <div class="single-shop-product">
+                         <div class="product-upper">
+                             <img src="@item.Image" alt="">
+                         </div>
+                         <h2>
+                             <a href="./products?name=@item.Alias">@item.Name</a>
+                         </h2>
+                         <div class="product-carousel-price">
+                             <ins>@item.Price</ins>
+                         </div>
+
+                         <div class="product-option-shop">
+                             <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="/api/sitecore/Site/AddToCart?alias=@item.Alias&quantity=1">Add to cart</a>
+                         </div>
+                     </div>
+                 </div>
+             }
+        }
+</div>

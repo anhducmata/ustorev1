@@ -1,0 +1,36 @@
+﻿
+@{
+    Layout = null;
+}
+
+<div class="mainmenu-area">
+    <div class="container">
+        <div class="row">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <div class="row">
+                    <div class="col-md-8">
+                        <ul class="nav navbar-nav">
+                            @foreach (var item in Model)
+                            {
+                                <li><a href="@item.Link">@item.DisplayName</a></li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <form action="./Search" method="GET">
+                            <input name="keyword" id="searchBar" autocomplete="off" type="text" style="margin-top: 15px;" class="form-control pull-right" placeholder="Searching ..." />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End mainmenu area -->
